@@ -64,7 +64,11 @@ document.addEventListener('DOMContentLoaded', function () {
         createGallery(data.hits);
       }
 
-      showLoadMore();
+      if (data.hits.length >= 15) {
+        showLoadMore();
+      } else {
+        hideLoadMore();
+      }
     } catch (error) {
       console.log(error);
       iziToast.error({
@@ -78,9 +82,10 @@ document.addEventListener('DOMContentLoaded', function () {
       hideLoader();
     }
 
-    btnLoad.addEventListener('click', handleLoadMore);
     form.reset();
   }
+
+  btnLoad.addEventListener('click', handleLoadMore);
 
   async function handleLoadMore() {
     params.page += 1;
@@ -122,37 +127,3 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 });
-
-// searchImage(query)
-//   .then(data => {
-//     if (data.hits.length === 0) {
-//       iziToast.error({
-//         backgroundColor: '#EF4040',
-//         message:
-//           'Sorry, there are no images matching your search query. Please try again!',
-//         titleColor: '#fff',
-//         messageColor: '#fff',
-//         progressBarColor: '#B51B1B',
-//       });
-//       return;
-//     }
-
-//     createGallery(data.hits);
-//   })
-//   .catch(error => {
-//     console.log(error);
-//     iziToast.error({
-//       backgroundColor: '#EF4040',
-//       message: 'Sorry, something goes wrong. Please, try again later!',
-//       titleColor: '#fff',
-//       messageColor: '#fff',
-//       progressBarColor: '#B51B1B',
-//     });
-//   })
-//   .finally(() => {
-//     hideLoader();
-//   });
-
-//     form.reset();
-//   }
-// });
